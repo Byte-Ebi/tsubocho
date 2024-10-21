@@ -1,0 +1,51 @@
+networks:
+    server:
+    data:
+
+services:
+    nginx:
+        container_name: nginx
+        image: nginx:1.27-alpine-slim
+        ports:
+            - "80:80"
+            - "443:443"
+        networks:
+            - server
+        volumes:
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+            - ./nginx/ssl/:/ssl/
+            - ../../:/var/www/html/tsubocho/
+
+    php:
+        container_name: php
+        build: ./php/
+        expose:
+            - 9000
+        networks:
+            - server
+            - data
+        volumes:
+            - ../../:/var/www/html/tsubocho/
+
+    redis:
+        container_name: redis
+        image: redis:7.4
+        ports:
+            - "6379:6379"
+        networks:
+            - data
+
+    postgre:
+        container_name: postgre
+        ports:
+            - "5432:5432"
+        image: "postgres:17.0"
+        volumes:
+            - ./database_data:/var/lib/postgresql/data
+        networks:
+            - data
+        environment:
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: tsubocho
+        restart: always

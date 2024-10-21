@@ -21,3 +21,6 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+
+infrastructure/local/database_data/*
+infrastructure/local/nginx/ssl/*
