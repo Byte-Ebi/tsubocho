@@ -77,6 +77,7 @@ This command will generate two files: `localhost.key` and `localhost.crt`.
 
 ```
 docker-compose up -d
+npm run dev
 ```
 
 After the command is done, you should be able to access the website at `https://local.tsubocho.com`.
