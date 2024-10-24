@@ -81,3 +81,27 @@ npm run dev
 ```
 
 After the command is done, you should be able to access the website at `https://local.tsubocho.com`.
+
+## Troubleshooting
+
+### Can not connect to PostgreSQL
+
+Make sure you have set up the database configuration in `.env`.
+
+```
+php artisan db
+```
+
+If it shows `sqlite` then you should change the database configuration in `.env` to `pgsql`.
+
+If it shows error `sh: line 0: exec: psql: not found`.
+You can install `postgresql` and `psql` in your system, it mean your `.env` is configured correctly.
+
+In this case, you can ignore this error.
+
+Then open a terminal using the following command to connect to PostgreSQL:
+
+```
+cd infrastructure/local
+docker-compose exec postgre psql -U admin_user -d tsubocho
+```
